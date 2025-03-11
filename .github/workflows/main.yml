@@ -1,0 +1,21 @@
+name: Build APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Extract ZIP
+        run: unzip your-file.zip -d extracted
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      - name: Build APK
+        run: |
+          cd extracted
+          # أمر بناء APK هنا
+          # قد تحتاج إلى تعديله حسب محتوى الملف الخاص بك
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: extracted/app/build/outputs/apk/debug/*.apk
