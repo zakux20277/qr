@@ -1,9 +1,9 @@
-name: Flutter Build APK
+name: Deploy Slack Bolt App
 
 on:
   push:
     branches:
-      - main  # تشغيل السكربت عند كل push على الفرع الرئيسي
+      - main
 
 jobs:
   build:
@@ -13,25 +13,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          flutter-version: "3.x"  # استخدم إصدار Flutter المناسب لك
+          node-version: "18"  # Use the correct Node.js version for your project
 
       - name: Install dependencies
-        run: flutter pub get
+        run: npm install
 
-      - name: Create missing Android files (if needed)
-        run: flutter create .
+      - name: Run tests
+        run: npm test
 
-      - name: Grant execute permission to Gradle
-        run: chmod +x android/gradlew
-
-      - name: Build APK
-        run: flutter build apk --release
-
-      - name: Upload APK as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: built-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+      - name: Deploy (optional)
+        run: echo "Deploy steps go here"
