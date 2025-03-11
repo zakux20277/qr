@@ -8,7 +8,7 @@ jobs:
       - name: Extract ZIP
         run: unzip your-file.zip -d extracted
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v3
       - name: Build APK
         run: |
           cd extracted
